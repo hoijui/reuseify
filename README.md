@@ -19,6 +19,10 @@ It uses the git commit history for extracting author/copyright info,
 and a file assigning regexes - matching the (git tracked/content) files -
 to SPDX expressions.
 
+This tool does not let you execute and forget! \
+In any case, you **have to manually adjust**
+whatever this script generates!
+
 ## Installation
 
 ```sh
