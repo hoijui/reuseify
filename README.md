@@ -55,4 +55,4 @@ reuseify.sh
 
 **IMPORTANT** \
 If successful, this tool generates a git commit with all the changes,
-which you *will have to* manually edit (aka amend)!
+which you **will have to manually edit** (aka amend)!
