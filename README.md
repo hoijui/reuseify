@@ -24,6 +24,35 @@ This tool does not let you execute and forget! \
 In any case, you **have to manually adjust**
 whatever this script generates!
 
+## Why / What for
+
+[REUSE](https://reuse.software/) is a system by
+the [Free Software Foundation Europe](https://fsfe.org/),
+for assigning detailed (per file) licensing information for a project,
+both human- and machine-readable.
+In other words, it is like your *LICENSE* file on steroids.
+
+There are many good reasons to do this, but we will assume now,
+that you are already convinced it is a good idea to have that.
+
+If you start a new project, you can add REUSE info to it from the start.
+If you want to convert an existing project however,
+things are a bit more difficult:
+There are a lot of files already,
+probably edited by many people over years,
+sometimes renamed or moved to different directories, ...
+How to handle this; how to correctly annotate each file now?
+
+This is where this project comes in.
+Instead of manually extracting the list of authors for each file
+and the years they were active,
+plus deciding on the license for each file,
+this script helps you automate as much of this as possible. \
+Always remember though,
+that this only relieves you of the labor-intensive grit-work,
+and not of any legal questions or from **manually checking
+if the generated info actually makes sense**.
+
 ## Installation
 
 ```sh
