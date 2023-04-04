@@ -90,6 +90,9 @@ which you **will have to manually edit** (aka amend)! \
 
 See the next section for an explanation of this commit.
 
+**NOTE** \
+It can also be used on already partially annotated projects.
+
 ## What it does
 
 It creates a new git commit, that contains:
