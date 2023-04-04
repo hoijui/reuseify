@@ -18,6 +18,7 @@ find_unlicensed_awk="$script_dir/filter_unlicensed_files.awk"
 extract_signed_off_awk="$script_dir/extract_signed_off.awk"
 tmp_file_stati="$our_dir/file_stati.csv"
 init=false
+re_author=false
 dry=false
 
 function print_help() {
@@ -32,6 +33,8 @@ function print_help() {
 	echo "Options:"
 	echo "  -h, --help              Print this usage help and exits."
 	echo "  -i, --init              Initializes this repo for use with this tool and exits."
+	echo "  -r, --re-author         Also adds additional author annotations to files"
+	echo "                          that already are author annotated."
 	echo "  -d, --dry               Does not actually change anything,"
     echo "                          just prints-out commands that would be executed."
 	echo "Examples:"
@@ -55,6 +58,9 @@ do
 			;;
 		-i|--init)
 			init=true
+			;;
+		-r|--re-author)
+			re_author=true
 			;;
 		-d|--dry)
 			dry=true
@@ -319,6 +325,10 @@ reuse spdx | \
 
 while IFS="," read -r file_path has_license has_copyright
 do
+    if $re_author
+    then
+        has_copyright="0"
+    fi
     echo
     echo "Ensuring REUSE info for '$file_path' ..."
     process_file "$file_path" "$has_license" "$has_copyright"
