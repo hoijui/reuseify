@@ -80,7 +80,7 @@ cd my-git-project
 reuseify.sh --init
 # Manually edit file '.reuseify/license_rgxs.tsv'.
 reuseify.sh
-# Ammend the created git commit with your favourite IDE or git GUI.
+# Amend the created git commit with your favorite IDE or git GUI.
 ```
 
 **IMPORTANT** \
