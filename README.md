@@ -87,4 +87,28 @@ reuseify.sh
 **IMPORTANT** \
 If successful, this tool generates a git commit with all the changes,
 which you **will have to manually edit** (aka amend)! \
-See the output of the tool for hints of what to look for.
+
+See the next section for an explanation of this commit.
+
+## What it does
+
+It creates a new git commit, that contains:
+
+1. All files that were without REUSE info, should now have it annotated.
+2. Those that support header comments, will have it there.
+3. Those who do not support header comments,
+    will have it duplicated to two locations -
+    `${file_path}.license` and `.reuse/dep5` -
+    and it is crucial to edit this,
+    and make sure it remains only in one of the two,
+    and in a cleaned up way,
+    especially if you decide to use `.reuse/dep5`,
+    you might want to unify entries with clever usage of globs,
+    without over-using them.
+    You can choose which location to use on a per-file basis.
+
+We do the duplication of annotations described in step 3. above,
+to leave ones options open,
+and consequently minimizing the required manual work,
+to get to what one wants,
+basically reducing the required manual work to just deletions.
