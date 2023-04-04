@@ -15,6 +15,7 @@ script_name="$(basename "$script_path")"
 our_dir=".reuseify"
 rgx_file="$our_dir/license_rgxs.tsv"
 find_unlicensed_awk="$script_dir/filter_unlicensed_files.awk"
+extract_signed_off_awk="$script_dir/extract_signed_off.awk"
 tmp_file_stati="$our_dir/file_stati.csv"
 init=false
 dry=false
@@ -67,13 +68,25 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 
 function get_authors() {
     local src_file="$1"
-    git log \
-        --follow \
-        --date="format:%Y" \
-        --format="format:%cd,%aN <%aE>" \
-        -- \
-        "$src_file" | \
-        awk '!seen[$0]++'
+    {
+        # This lists the commit authors
+        git log \
+            --follow \
+            --date="format:%Y" \
+            --format="format:%cd,%aN <%aE>" \
+            -- \
+            "$src_file"
+        echo
+
+        # This lists "Signed-off-by: ..." and "Co-authored-by: ..." authors
+        git log \
+            --follow \
+            --date="format:%Y" \
+            --format="format:@C_START@%n%cd%n%s%n%b%n@C_END@" \
+            -- \
+            "$src_file" \
+            | awk -f "$extract_signed_off_awk"
+    } | awk '!seen[$0]++'
 }
 
 function decide_license_for() {
