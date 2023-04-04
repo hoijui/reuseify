@@ -7,7 +7,7 @@
 # Exit immediately on each error and unset variable;
 # see: https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -Eeuo pipefail
-#set -Eeu
+#set -eu
 
 script_path="$(readlink -f "${BASH_SOURCE[0]}")"
 script_dir="$(dirname "$script_path")"
