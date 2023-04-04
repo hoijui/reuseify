@@ -59,11 +59,12 @@ if the generated info actually makes sense**.
 git clone "https://github.com/hoijui/reuseify.git"
 cd "reuseify/src/software"
 
-# To use it permanently
+# BASH: for new sessions
 echo "export PATH=\"$PATH:$(pwd)\"" > ~/.profile
-
-# To use it for this session
+# BASH: for this session
 export PATH="$PATH:$(pwd)"
+# fish: for this session, all others and after reboot
+#fish_add_path (pwd)
 ```
 
 to update:
