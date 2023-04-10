@@ -282,6 +282,7 @@ function process_file() {
             >&2 echo "ERROR: Not a single copyright entry found for file '$file_path'."
             exit 6
         fi
+        license="${license:-"$(decide_license_for "$file_path")"}"
         add_dep5 \
             "$file_path" \
             "$license" \
