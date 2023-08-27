@@ -277,9 +277,10 @@ function process_file() {
     if [ -f "$lic_file_path" ]
     then
         readarray -t copyrights < <(awk -F ": " '/^SPDX-FileCopyrightText: / { print $2; }' < "$lic_file_path")
-        if [ "${#copyrights[@]}" -eq 0 ]
+        num_cr_entries="${#copyrights[@]}"
+        if [ "$num_cr_entries" -eq 0 ]
         then
-            >&2 echo "ERROR: Not a single copyright entry found for file '$file_path'."
+            >&2 echo "ERROR: Not a single copyright entry found for file '$file_path'; found $num_cr_entries."
             exit 6
         fi
         license="${license:-"$(decide_license_for "$file_path")"}"
