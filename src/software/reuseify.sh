@@ -346,7 +346,7 @@ rm "$tmp_file_stati"
 reuse download --all
 
 git add --all
-git commit -a -m "REUSE licensing info - auto-generated with \`$script_name\`\n\n"
+git commit -a -m "REUSE licensing info - auto-generated with \`$script_name\`"
 new_commit="$(git describe --always)"
 
 echo
