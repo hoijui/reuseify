@@ -316,6 +316,11 @@ do
         # This is the header row; skip it
         continue
     fi
+    if [  "${rgx:0:1}" = '#' ]
+    then
+        # This is a comment; skip it
+        continue
+    fi
     license_rgxs+=("$rgx")
     license_spdx_ids+=("$spdx_id")
 done < <(cat "$rgx_file")
