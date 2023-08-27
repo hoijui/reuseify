@@ -136,13 +136,13 @@ function init_repo() {
     if ! [ -f "$rgx_file" ]
     then
         {
-            printf "%s\t%s" 'Regex' 'SPDX-License-ID'
-            printf "%s\t%s" '.*\.md' 'CC-BY-SA-4.0'
-            printf "%s\t%s" '\.git(ignore|module|attributes)' 'CC0-1.0'
-            printf "%s\t%s" 'run/.*' 'Unlicense'
-            printf "%s\t%s" 'src/software/.*' 'AGPL-3.0-or-later'
-            printf "%s\t%s" 'res/.*' 'CC-BY-SA-4.0'
-            printf "%s\t%s" '.*' 'CERN-OHL-S-2.0'
+            printf "%s\t%s\n" 'Regex' 'SPDX-License-ID'
+            printf "%s\t%s\n" '.*\.md' 'CC-BY-SA-4.0'
+            printf "%s\t%s\n" '\.git(ignore|module|attributes)' 'CC0-1.0'
+            printf "%s\t%s\n" 'run/.*' 'Unlicense'
+            printf "%s\t%s\n" 'src/software/.*' 'AGPL-3.0-or-later'
+            printf "%s\t%s\n" 'res/.*' 'CC-BY-SA-4.0'
+            printf "%s\t%s\n" '.*' 'CERN-OHL-S-2.0'
         } > "$rgx_file"
         >&2 echo "WARN: Generated sample '$rgx_file'; please edit it!"
     fi
