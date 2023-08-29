@@ -54,6 +54,10 @@ if the generated info actually makes sense**.
 
 ## Installation
 
+You first need to install the original [REUSE tool] by the FSF,
+if you don't already have it. \
+Then you may continue installing the latest version of reusify:
+
 ```sh
 git clone "https://github.com/hoijui/reuseify.git"
 cd "reuseify/src/software"
@@ -116,4 +120,5 @@ to get to what one wants,
 basically reducing the required manual work to just deletions.
 
 [REUSE]: https://reuse.software/
+[REUSE tool]: https://git.fsfe.org/reuse/tool
 [Free Software Foundation Europe]: https://fsfe.org/
