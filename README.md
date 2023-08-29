@@ -14,11 +14,18 @@ SPDX-License-Identifier: CC0-1.0
     https://api.reuse.software/info/github.com/hoijui/reuseify)
 
 A BASH (and AWK) tool to generate [REUSE] compatible
-SPDX licensing info
-for a project stored in a git repo.
-It uses the git commit history for extracting author/copyright info,
-and a file assigning regexes - matching the (git tracked/content) files -
-to SPDX expressions.
+SPDX licensing info for a project stored in a git repo.
+
+## How it works
+
+It assigns to the projects files:
+
+* **author/copyright** info,
+  by extracting it from the git commit history
+* **licenses**, using regex + SPDX expression pairs
+  defined in a file
+
+The grunt work is done with the [REUSE tool] under the hood.
 
 This tool does not let you execute and forget! \
 In any case, you **have to manually adjust**
