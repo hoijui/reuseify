@@ -13,7 +13,7 @@ SPDX-License-Identifier: CC0-1.0
     https://api.reuse.software/badge/github.com/hoijui/reuseify)](
     https://api.reuse.software/info/github.com/hoijui/reuseify)
 
-A BASH (and AWK) tool to generate [REUSE](https://reuse.software/) compatible
+A BASH (and AWK) tool to generate [REUSE] compatible
 SPDX licensing info
 for a project stored in a git repo.
 It uses the git commit history for extracting author/copyright info,
@@ -26,8 +26,7 @@ whatever this script generates!
 
 ## Why / What for
 
-[REUSE](https://reuse.software/) is a system by
-the [Free Software Foundation Europe](https://fsfe.org/),
+[REUSE] is a system by the [Free Software Foundation Europe],
 for assigning detailed (per file) licensing information for a project,
 both human- and machine-readable.
 In other words, it is like your *LICENSE* file on steroids.
@@ -115,3 +114,6 @@ to leave ones options open,
 and consequently minimizing the required manual work,
 to get to what one wants,
 basically reducing the required manual work to just deletions.
+
+[REUSE]: https://reuse.software/
+[Free Software Foundation Europe]: https://fsfe.org/
