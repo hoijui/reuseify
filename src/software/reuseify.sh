@@ -109,6 +109,17 @@ function decide_license_for() {
     return 1
 }
 
+function exit_if_not_git_repo() {
+    if [ -e ".git" ]
+    then
+        echo "INFO: Git working directory found; continuing ..."
+    else
+        >&2 echo "ERROR: Git working directory is *NOT* found."
+        >&2 echo "ERROR: You may want to run 'git init'."
+        exit 7
+    fi
+}
+
 function exit_if_git_unclean() {
     if [ -z "$(git status --porcelain)" ]
     then
@@ -290,6 +301,8 @@ function process_file() {
             "${copyrights[@]}"
     fi
 }
+
+exit_if_not_git_repo
 
 exit_if_git_unclean
 
