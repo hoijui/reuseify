@@ -7,7 +7,7 @@ SPDX-License-Identifier: CC0-1.0
 # REUSE-ify
 
 [![License: AGPL-3.0-or-later](
-    https://img.shields.io/badge/License-AGPL--%203.0--or--later-blue.svg)](
+    https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](
     https://spdx.org/licenses/AGPL-3.0-or-later.html)
 [![REUSE status](
     https://api.reuse.software/badge/github.com/hoijui/reuseify)](
