@@ -100,7 +100,7 @@ function decide_license_for() {
     local length=${#license_rgxs[@]}
     for (( j = 0; j < length; j++ ))
     do
-        if echo "$src_file" | grep -e "^${license_rgxs[$j]}\$" --quiet
+        if echo "$src_file" | grep -E -e "^${license_rgxs[$j]}\$" --quiet
         then
             echo "${license_spdx_ids[$j]}"
             return 0
