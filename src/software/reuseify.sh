@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SPDX-FileCopyrightText: 2023 Robin Vobruba <hoijui.quaero@gmail.com>
+# SPDX-FileCopyrightText: 2023-2025 Robin Vobruba <hoijui.quaero@gmail.com>
 # SPDX-License-Identifier: AGPL-3.0-only
 #
 # See the output of "$0 -h" for details.
@@ -16,14 +16,14 @@ our_dir=".reuseify"
 rgx_file="$our_dir/license_rgxs.tsv"
 find_unlicensed_awk="$script_dir/filter_unlicensed_files.awk"
 extract_signed_off_awk="$script_dir/extract_signed_off.awk"
-tmp_file_stati="$our_dir/file_stati.csv"
+tmp_file_statuses="$our_dir/file_statuses.csv"
 init=false
 re_author=false
 dry=false
 
 function print_help() {
 
-	echo -e "$script_name -"
+	echo -n "$script_name -"
 	echo "Adds REUSE (SPDX) license info to a git repo."
 	echo "It gets the authors from the git history of each individual file,"
 	echo "and the license from a CSV/TSV file with repo-relative regex ('$rgx_file')."
@@ -112,7 +112,7 @@ function decide_license_for() {
 function exit_if_git_unclean() {
     if [ -z "$(git status --porcelain)" ]
     then
-        echo "INFO: Git working directory is clean, continuing ..."
+        echo "INFO: Git working directory is clean; continuing ..."
     else
         >&2 echo "ERROR: Git working directory is *NOT* clean, aborting."
         >&2 echo "ERROR: Please check the output of 'git status'."
@@ -328,7 +328,7 @@ done < <(cat "$rgx_file")
 
 reuse spdx | \
     awk -f "$find_unlicensed_awk" \
-    > "$tmp_file_stati"
+    > "$tmp_file_statuses"
 
 while IFS="," read -r file_path has_license has_copyright
 do
@@ -339,9 +339,9 @@ do
     echo
     echo "Ensuring REUSE info for '$file_path' ..."
     process_file "$file_path" "$has_license" "$has_copyright"
-done < <(tail -n +2 "$tmp_file_stati")
+done < <(tail -n +2 "$tmp_file_statuses")
 
-rm "$tmp_file_stati"
+rm "$tmp_file_statuses"
 
 reuse download --all
 
@@ -351,7 +351,7 @@ new_commit="$(git describe --always)"
 
 echo
 echo "Created a new git commit '$new_commit'."
->&2 echo "WARN: Please modify (ammend) the new git commit!"
+>&2 echo "WARN: Please modify (amend) the new git commit!"
 >&2 echo "WARN: Take special care looking at '.reuse/dep5'"
 >&2 echo "WARN: and all the *.license files in the commit."
 echo
