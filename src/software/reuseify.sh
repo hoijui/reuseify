@@ -214,8 +214,12 @@ function add_dep5() {
     local write_header=false
     if ! [ -e "$dep5" ]
     then
-        mkdir -p "$(dirname "$dep5")"
+        $mod_cmd_prefix mkdir -p "$(dirname "$dep5")"
         write_header=true
+    fi
+    if $dry
+    then
+        dep5="/dev/stdout"
     fi
     {
         if $write_header
