@@ -251,7 +251,7 @@ function process_file() {
     local license
     if [ "$has_license" -eq 0 ]
     then
-        # License is missing -> add it
+        # License is missing -> Ask user to add it!
         if ! license="$(decide_license_for "$file_path")"
         then
             >&2 echo "ERROR: No copyright regex matched file '$file_path';"
