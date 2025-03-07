@@ -408,6 +408,6 @@ then
     >&2 echo "WARN: Please modify (amend) the new git commit!"
     >&2 echo "WARN: Take special care looking at '.reuse/dep5'"
     >&2 echo "WARN: and all the *.license files in the commit."
+    >&2 echo
 fi
-echo
 echo "done."
