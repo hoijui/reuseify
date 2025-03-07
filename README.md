@@ -13,6 +13,10 @@ SPDX-License-Identifier: CC0-1.0
     https://api.reuse.software/badge/github.com/hoijui/reuseify)](
     https://api.reuse.software/info/github.com/hoijui/reuseify)
 
+[![In cooperation with Open Source Ecology Germany](
+    https://raw.githubusercontent.com/osegermany/tiny-files/master/res/media/img/badge-oseg.svg)](
+    https://opensourceecology.de)
+
 A BASH (and AWK) tool to generate [REUSE] compatible
 SPDX licensing info for a project stored in a git repo.
 
