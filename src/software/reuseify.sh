@@ -12,6 +12,7 @@ set -Eeuo pipefail
 script_path="$(readlink -f "${BASH_SOURCE[0]}")"
 script_dir="$(dirname "$script_path")"
 script_name="$(basename "$script_path")"
+IGNORE_LICENSE_SPEC="__IGNORE__"
 our_dir=".reuseify"
 rgx_file="$our_dir/license_rgxs.tsv"
 find_unlicensed_awk="$script_dir/filter_unlicensed_files.awk"
@@ -265,11 +266,17 @@ function process_file() {
         then
             >&2 echo "ERROR: No copyright regex matched file '$file_path';"
             >&2 echo "ERROR: Please edit '$rgx_file' accordingly."
-            error_exit 4
+            missing_license_files+=("$file_path")
         fi
-        reuse_annotate \
-            "$file_path" \
-            --license "$license"
+        if [ "$license" == "$IGNORE_LICENSE_SPEC" ]
+        then
+            >&2 echo "WARN: Ignored regex matched file '$file_path'."
+            ignored_files+=("$file_path")
+        else
+            reuse_annotate \
+                "$file_path" \
+                --license "$license"
+        fi
     fi
     if [ "$has_copyright" -eq 0 ]
     then
@@ -352,6 +359,8 @@ reuse spdx | \
     awk -f "$find_unlicensed_awk" \
     > "$tmp_file_statuses"
 
+missing_license_files=()
+ignored_files=()
 while IFS="," read -r file_path has_license has_copyright
 do
     if $re_author
@@ -362,6 +371,23 @@ do
     echo "Ensuring REUSE info for '$file_path' ..."
     process_file "$file_path" "$has_license" "$has_copyright"
 done < <(tail -n +2 "$tmp_file_statuses")
+
+mlf_length=${#missing_license_files[@]}
+if ! [ "$mlf_length" -eq 0 ]
+then
+    >&2 echo
+    >&2 echo "ERROR: Some files were not matched by any of the copyright regexes;"
+    >&2 echo "ERROR: Please edit '$rgx_file' accordingly, to match these files."
+    >&2 echo "ERROR: NOTE: You may use \"$IGNORE_LICENSE_SPEC\" there."
+    >&2 echo "ERROR: Unmatched files:"
+    mlf_length=${#missing_license_files[@]}
+    for (( j = 0; j < mlf_length; j++ ))
+    do
+        >&2 echo "${missing_license_files[$j]}"
+    done
+    >&2 echo "ERROR: End of unmatched files list."
+    error_exit 4
+fi
 
 rm "$tmp_file_statuses"
 
