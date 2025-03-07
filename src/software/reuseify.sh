@@ -315,10 +315,13 @@ function process_file() {
             error_exit 6
         fi
         license="${license:-"$(decide_license_for "$file_path")"}"
-        add_dep5 \
-            "$file_path" \
-            "$license" \
-            "${copyrights[@]}"
+        if ! [ "$license" == "$IGNORE_LICENSE_SPEC" ]
+        then
+            add_dep5 \
+                "$file_path" \
+                "$license" \
+                "${copyrights[@]}"
+        fi
     fi
 }
 
