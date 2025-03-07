@@ -365,16 +365,19 @@ done < <(tail -n +2 "$tmp_file_statuses")
 
 rm "$tmp_file_statuses"
 
-reuse download --all
-
-git add --all
-git commit -a -m "REUSE licensing info - auto-generated with \`$script_name\`"
-new_commit="$(git describe --always)"
-
 echo
-echo "Created a new git commit '$new_commit'."
->&2 echo "WARN: Please modify (amend) the new git commit!"
->&2 echo "WARN: Take special care looking at '.reuse/dep5'"
->&2 echo "WARN: and all the *.license files in the commit."
+if ! $dry
+then
+    reuse download --all
+
+    git add --all
+    git commit -a -m "REUSE licensing info - auto-generated with \`$script_name\`"
+    new_commit="$(git describe --always)"
+
+    echo "Created a new git commit '$new_commit'."
+    >&2 echo "WARN: Please modify (amend) the new git commit!"
+    >&2 echo "WARN: Take special care looking at '.reuse/dep5'"
+    >&2 echo "WARN: and all the *.license files in the commit."
+fi
 echo
 echo "done."
