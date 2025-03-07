@@ -72,6 +72,15 @@ do
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
+function error_exit() {
+    exit_state="${1:-"1"}"
+    if [ "$exit_state" -ne 0 ]
+    then
+        >&2 echo "ERROR: This aborts the reuse-ify process here."
+    fi
+    exit "$exit_state"
+}
+
 function get_authors() {
     local src_file="$1"
     {
@@ -116,7 +125,7 @@ function exit_if_not_git_repo() {
     else
         >&2 echo "ERROR: Git working directory is *NOT* found."
         >&2 echo "ERROR: You may want to run 'git init'."
-        exit 7
+        error_exit 7
     fi
 }
 
@@ -127,7 +136,7 @@ function exit_if_git_unclean() {
     else
         >&2 echo "ERROR: Git working directory is *NOT* clean, aborting."
         >&2 echo "ERROR: Please check the output of 'git status'."
-        exit 1
+        error_exit 1
     fi
 }
 
@@ -137,7 +146,7 @@ function exit_if_missing_rgxs() {
         echo "INFO: Using file '$rgx_file' to determine which license to use for which file."
     else
         >&2 echo "ERROR: Could not find file '$rgx_file' - it is required!"
-        exit 2
+        error_exit 2
     fi
 }
 
@@ -256,7 +265,7 @@ function process_file() {
         then
             >&2 echo "ERROR: No copyright regex matched file '$file_path';"
             >&2 echo "ERROR: Please edit '$rgx_file' accordingly."
-            exit 4
+            error_exit 4
         fi
         reuse_annotate \
             "$file_path" \
@@ -277,7 +286,7 @@ function process_file() {
         if [ "$num_authors" -eq 0 ]
         then
             >&2 echo "ERROR: Not a single author found for file '$file_path'."
-            exit 5
+            error_exit 5
         fi
     fi
 
@@ -292,7 +301,7 @@ function process_file() {
         if [ "$num_cr_entries" -eq 0 ]
         then
             >&2 echo "ERROR: Not a single copyright entry found for file '$file_path'; found $num_cr_entries."
-            exit 6
+            error_exit 6
         fi
         license="${license:-"$(decide_license_for "$file_path")"}"
         add_dep5 \
